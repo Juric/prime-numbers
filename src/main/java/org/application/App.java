@@ -18,6 +18,7 @@ import java.util.logging.Logger;
  */
 public class App {
     private static final Logger LOGGER = Logger.getLogger(App.class.getName());
+    private static final int COLUMN = 1; // Column B = 1
 
     public static void main(String[] args) {
         String pathToFile;
@@ -38,12 +39,12 @@ public class App {
                     itr.next(); //skip "Data" header
                     while (itr.hasNext()) {
                         Row row = itr.next();
-                        Cell cell = row.getCell(1);
-                        Long cellValue = 0L;
+                        Cell cell = row.getCell(COLUMN);
+                        long cellValue;
                         try {
                             cellValue = Long.parseLong(cell.getStringCellValue());
                         } catch (NumberFormatException e) {
-                            LOGGER.warning(String.format("'%s' is not a number", cellValue));
+                            continue;
                         }
                         if (isPrime(cellValue)) {
                             System.out.println(cellValue);
